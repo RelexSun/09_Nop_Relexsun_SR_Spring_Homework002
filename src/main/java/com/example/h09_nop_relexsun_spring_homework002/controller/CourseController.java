@@ -4,6 +4,7 @@ import com.example.h09_nop_relexsun_spring_homework002.model.DTO.request.CourseR
 import com.example.h09_nop_relexsun_spring_homework002.model.DTO.response.APIResponse;
 import com.example.h09_nop_relexsun_spring_homework002.model.entity.Course;
 import com.example.h09_nop_relexsun_spring_homework002.service.implement.CourseServiceImplement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,14 +43,14 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<APIResponse<Course>> createCourse(@RequestBody CourseRequest request) {
+    public ResponseEntity<APIResponse<Course>> createCourse(@Valid @RequestBody CourseRequest request) {
         Course course = this.courseServiceImplement.createCourse(request);
         APIResponse<Course> response = APIResponse.<Course>builder().message("Course created successfully").payload(course).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{course-id}")
-    public ResponseEntity<APIResponse<Course>> updateCourse(@PathVariable("course-id") Long id, @RequestBody CourseRequest request) {
+    public ResponseEntity<APIResponse<Course>> updateCourse(@Valid @PathVariable("course-id") Long id, @RequestBody CourseRequest request) {
         Course course = this.courseServiceImplement.updateCourse(id, request);
         APIResponse<Course> response = APIResponse.<Course>builder().message("Updated course successfully").payload(course).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);

@@ -33,7 +33,14 @@ public class StudentServiceImplement implements StudentService {
 
     @Override
     public Student updateStudent(Long id, StudentRequest request) {
-        return this.studentRepository.updateStudent(id, request);
+        Student student = this.studentRepository.updateStudent(id, request);
+
+        this.studentCourseRepository.deleteStudentCourse(student.getStudentId());
+
+        for (Long courseId : request.getCoursesId()) {
+            this.studentCourseRepository.createStudentCourse(student.getStudentId(), courseId);
+        }
+        return getStudentById(student.getStudentId());
     }
 
     @Override

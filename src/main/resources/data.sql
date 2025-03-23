@@ -36,4 +36,6 @@ INSERT INTO student_courses (course_id, student_id) VALUES
     (3, 9), -- George Lewis enrolled in Data Structures and Algorithms
     (4, 10); -- Hannah Walker enrolled in Machine Learning Basics
 
+DELETE FROM student_courses WHERE course_id = 1;
+
     SELECT * FROM student_courses

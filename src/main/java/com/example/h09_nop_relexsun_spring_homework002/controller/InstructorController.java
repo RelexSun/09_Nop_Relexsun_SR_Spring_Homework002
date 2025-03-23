@@ -4,6 +4,7 @@ import com.example.h09_nop_relexsun_spring_homework002.model.DTO.request.Instruc
 import com.example.h09_nop_relexsun_spring_homework002.model.DTO.response.APIResponse;
 import com.example.h09_nop_relexsun_spring_homework002.model.entity.Instructor;
 import com.example.h09_nop_relexsun_spring_homework002.service.implement.InstructorServiceImplement;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class InstructorController {
     }
 
     @PostMapping
-    public ResponseEntity<APIResponse<Instructor>> createInstructor(@RequestBody InstructorRequest request) {
+    public ResponseEntity<APIResponse<Instructor>> createInstructor(@Valid  @RequestBody InstructorRequest request) {
         Instructor instructor = this.instructorServiceImplement.createInstructor(request);
         APIResponse<Instructor> response = APIResponse.<Instructor>builder().message("Instructor created successfully").payload(instructor).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
@@ -48,7 +49,7 @@ public class InstructorController {
     }
 
     @PutMapping("/{instructor-id}")
-    public ResponseEntity<APIResponse<Instructor>> deleteInstructorById(@PathVariable("instructor-id") Long id, @RequestBody InstructorRequest request) {
+    public ResponseEntity<APIResponse<Instructor>> updateInstructor(@Valid @PathVariable("instructor-id") Long id, @RequestBody InstructorRequest request) {
         Instructor instructor = this.instructorServiceImplement.updateInstructor(id, request);
         APIResponse<Instructor> response = APIResponse.<Instructor>builder().message("Instructor updated successfully").payload(instructor).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
