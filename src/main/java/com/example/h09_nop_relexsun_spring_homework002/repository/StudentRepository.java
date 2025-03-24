@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 
 @Mapper
-public interface StudentRepository {
+public interface
+StudentRepository {
 
         @Results(id="studentMapper", value={
                 @Result(property = "studentId", column = "student_id"),

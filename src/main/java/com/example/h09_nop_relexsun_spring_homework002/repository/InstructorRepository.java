@@ -35,7 +35,7 @@ public interface InstructorRepository {
         INSERT INTO instructors VALUES (default, #{request.instructorName}, #{request.email})
         RETURNING *;
     """)
-    Instructor createInstructor(InstructorRequest request);
+    Instructor createInstructor(@Param("request") InstructorRequest request);
 
     @ResultMap("instructorMapper")
     @Select("""
@@ -43,5 +43,5 @@ public interface InstructorRepository {
         WHERE instructor_id = #{instructorId}
         RETURNING *;
     """)
-    Instructor updateInstructor(Long instructorId, InstructorRequest request);
+    Instructor updateInstructor(Long instructorId, @Param("request") InstructorRequest request);
 }

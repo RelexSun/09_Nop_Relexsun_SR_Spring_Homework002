@@ -20,7 +20,7 @@ public class StudentRequest {
     private String studentName;
     @NotNull
     @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Email should be valid", regexp = "^[A-Za-z0-9+_.-]+@uni-sofia.com")
+    @Email(message = "Email should be valid", regexp = "^[A-Za-z0-9+_.-]+@gmail.com")
     private String email;
     @NotNull
     @Pattern(regexp = "^0[1,9]\\d{7,8}$", message="Invalid Phone number")

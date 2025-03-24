@@ -20,6 +20,6 @@ public class InstructorRequest {
     private String instructorName;
     @NotNull
     @NotBlank(message = "Email cannot be blank")
-    @Email(message = "Email should be valid", regexp = "^[A-Za-z0-9+_.-]+@uni-sofia.com")
+    @Email(message = "Email should be valid", regexp = "^[A-Za-z0-9+_.-]+@gmail.com")
     private String email;
 }

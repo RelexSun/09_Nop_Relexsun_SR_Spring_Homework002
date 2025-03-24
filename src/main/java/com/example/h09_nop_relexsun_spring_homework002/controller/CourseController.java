@@ -46,7 +46,7 @@ public class CourseController {
     public ResponseEntity<APIResponse<Course>> createCourse(@Valid @RequestBody CourseRequest request) {
         Course course = this.courseServiceImplement.createCourse(request);
         APIResponse<Course> response = APIResponse.<Course>builder().message("Course created successfully").payload(course).status(HttpStatus.OK).timestamp(Instant.now()).build();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @PutMapping("/{course-id}")

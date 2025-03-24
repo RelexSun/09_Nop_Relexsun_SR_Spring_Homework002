@@ -36,7 +36,7 @@ public interface CourseRepository {
         INSERT INTO courses VALUES (default, #{request.courseName}, #{request.description}, #{request.instructorId})
         RETURNING *;
     """)
-    Course createCourse(CourseRequest request);
+    Course createCourse(@Param("request") CourseRequest request);
 
     @ResultMap("courseMapper")
     @Select("""
@@ -46,5 +46,5 @@ public interface CourseRepository {
                    WHERE course_id = #{courseId}
         RETURNING *;
     """)
-    Course updateCourse(Long courseId, CourseRequest request);
+    Course updateCourse(Long courseId, @Param("request") CourseRequest request);
 }

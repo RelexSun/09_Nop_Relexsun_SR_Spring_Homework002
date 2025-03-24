@@ -1,5 +1,6 @@
 package com.example.h09_nop_relexsun_spring_homework002.controller;
 
+import com.example.h09_nop_relexsun_spring_homework002.exception.NotFoundException;
 import com.example.h09_nop_relexsun_spring_homework002.model.DTO.request.InstructorRequest;
 import com.example.h09_nop_relexsun_spring_homework002.model.DTO.response.APIResponse;
 import com.example.h09_nop_relexsun_spring_homework002.model.entity.Instructor;
@@ -28,15 +29,16 @@ public class InstructorController {
     }
 
     @PostMapping
-    public ResponseEntity<APIResponse<Instructor>> createInstructor(@Valid  @RequestBody InstructorRequest request) {
+    public ResponseEntity<APIResponse<Instructor>> createInstructor(@RequestBody @Valid InstructorRequest request) {
         Instructor instructor = this.instructorServiceImplement.createInstructor(request);
         APIResponse<Instructor> response = APIResponse.<Instructor>builder().message("Instructor created successfully").payload(instructor).status(HttpStatus.OK).timestamp(Instant.now()).build();
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @GetMapping("/{instructor-id}")
     public ResponseEntity<APIResponse<Instructor>> getInstructorById (@PathVariable("instructor-id") Long id) {
         Instructor instructor = this.instructorServiceImplement.getInstructorById(id);
+        if(instructor == null) throw new NotFoundException("Instructor not found");
         APIResponse<Instructor> response = APIResponse.<Instructor>builder().message("success").payload(instructor).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
@@ -49,7 +51,7 @@ public class InstructorController {
     }
 
     @PutMapping("/{instructor-id}")
-    public ResponseEntity<APIResponse<Instructor>> updateInstructor(@Valid @PathVariable("instructor-id") Long id, @RequestBody InstructorRequest request) {
+    public ResponseEntity<APIResponse<Instructor>> updateInstructor(@Valid @PathVariable("instructor-id") Long id, @RequestBody @Valid InstructorRequest request) {
         Instructor instructor = this.instructorServiceImplement.updateInstructor(id, request);
         APIResponse<Instructor> response = APIResponse.<Instructor>builder().message("Instructor updated successfully").payload(instructor).status(HttpStatus.OK).timestamp(Instant.now()).build();
         return ResponseEntity.status(HttpStatus.OK).body(response);
